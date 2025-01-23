@@ -3,7 +3,7 @@ using Wps.Management.Domain;
 public class Pet : Entity<Guid>
 {
     
-    public string Name { get; init; }
+    public string Name { get; init; }//
     public Weight Weight { get; init; }
     public Pet(Guid id, string name, Weight weight) : base(id)
     {
