@@ -1,5 +1,4 @@
 using Wps.Management.Domain;
-using Wps.Management.Domain.ValueObjects;
 using Wps.SharedKernel;
 
 public class Pet : Entity<Guid>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wps.Management.Domain.ValueObjects
+namespace Wps.SharedKernel
 {
     public record Weight
     {

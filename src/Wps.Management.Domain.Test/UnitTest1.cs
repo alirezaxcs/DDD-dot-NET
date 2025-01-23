@@ -1,5 +1,5 @@
 ﻿using Wps.Management.Domain.Entities;
-using Wps.Management.Domain.ValueObjects;
+using Wps.SharedKernel;
 
 namespace Wps.Management.Domain.Test;
 
