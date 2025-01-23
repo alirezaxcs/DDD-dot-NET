@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Wps.Management.Domain;
+namespace Wps.SharedKernel;
 
 public interface IEntity<TId>
 {
