@@ -17,6 +17,6 @@ namespace Wps.SharedKernel
             Value = value;
         
         }
-        public static implicit operator Weight(double value) { return new Weight(value); }
+        public static implicit operator Weight(decimal value) { return new Weight(value); }
     }
 }

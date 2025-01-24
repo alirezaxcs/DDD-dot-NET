@@ -1,4 +1,4 @@
-﻿namespace Wps.Clinic.Domain
+﻿namespace Wps.Clinic.Domain.ValueObject
 {
     public record PatientId
     {
@@ -11,11 +11,11 @@
 
         private void Validate(Guid value)
         {
-            if (value==Guid.Empty )
+            if (value == Guid.Empty)
             {
                 throw new ArgumentNullException("ID value is empty");
             }
-          
+
 
         }
         public static implicit operator PatientId(Guid value) { return new PatientId(value); }

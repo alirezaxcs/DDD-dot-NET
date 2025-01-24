@@ -139,7 +139,7 @@ public class UnitTest1
 
         var fakeBreedService = new FakeBreedService();
         var pet1 = new Pet(guid, "tracker", 12, "red", SexOfPet.Male, new BreedId(fakeBreedService.GetBreeds()[0].Id, fakeBreedService));
-        pet1.SetWeight(3.2, fakeBreedService);//using Implicit Operator to pass direct decimal to Weight
+        pet1.SetWeight(3.2m, fakeBreedService);//using Implicit Operator to pass direct decimal to Weight
 
         Assert.True(pet1.WeightClass == WeightClass.Ideal);
     }
