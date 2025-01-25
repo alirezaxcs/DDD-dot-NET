@@ -9,11 +9,11 @@ namespace Wps.Clinic.Domain
         private readonly List<VitalSigns> vitalSignsReading;
         public IReadOnlyCollection<VitalSigns> VitalSignsReading => vitalSignsReading;
         public IReadOnlyCollection<DrugAdministration> AdministeredDrugs => administerDrugs;
-        public Text Diagnosis { get; private set; }
-        public Text Treatment { get; private set; }
+        public Text? Diagnosis { get; private set; }
+        public Text? Treatment { get; private set; }
         public PatientId PatientId { get; init; }
         public DateTime StartedAt { get; init; }
-        public Weight CurrentWeight { get; private set; }
+        public Weight? CurrentWeight { get; private set; }
         public ConsultationStatus ConsultationStatus { get; private set; }
         public DateTime? EndAt { get; private set; }
 
