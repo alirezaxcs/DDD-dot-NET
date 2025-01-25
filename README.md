@@ -1,1 +1,1 @@
-# DDD-dot-NET
+# Expert Domain-Driven Design (DDD) Implementation in .NET
