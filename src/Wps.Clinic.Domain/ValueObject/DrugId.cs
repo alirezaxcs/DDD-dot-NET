@@ -14,5 +14,8 @@ namespace Wps.Clinic.Domain.ValueObject
         {
             Value = value;
         }
+        public static implicit operator DrugId(Guid value)
+        { return new DrugId(value); }
+
     }
 }

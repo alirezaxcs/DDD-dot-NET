@@ -12,6 +12,10 @@ namespace Wps.Clinic.Domain
     {
         public DrugId DrugId { get; init; }
         public Dose Dose { get; init; }
+        public DrugAdministration() : base(Guid.NewGuid())
+        {
+            
+        }
         public DrugAdministration( DrugId drugId, Dose dose) : base(Guid.NewGuid())
         {
             DrugId = drugId;

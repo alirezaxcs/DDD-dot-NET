@@ -9,6 +9,8 @@ namespace Wps.Clinic.API.Infrustructure
     public class ClinicDbContext(DbContextOptions options) : DbContext(options)
     {
         public DbSet<Consultant> Consultations { get; set; }
+        public DbSet<VitalSigns> VitalSigns { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +32,7 @@ namespace Wps.Clinic.API.Infrustructure
 
                 consultation.HasMany(c => c.VitalSignsReading)
                     .WithOne()
-                    .HasForeignKey(m => m.Id);
+                    .HasForeignKey(m => m.ConsultantId);
 
             });
         }

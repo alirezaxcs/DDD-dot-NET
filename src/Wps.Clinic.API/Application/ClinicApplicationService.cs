@@ -3,6 +3,7 @@ using Wps.Clinic.API.Infrustructure;
 using Wps.Clinic.Domain.ValueObject;
 using Wps.Clinic.Domain;
 using Wps.SharedKernel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Wps.Clinic.API.Application
 {
@@ -31,7 +32,7 @@ namespace Wps.Clinic.API.Application
             var consultation = await dbContext.Consultations.FindAsync(command.ConsultationId);
             if (consultation != null)
             {
-                consultation.Diagnosis = new Diagnosis(command.Diagnosis);
+                consultation.SetDiagnosis(new Text(command.Diagnosis));
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -41,7 +42,7 @@ namespace Wps.Clinic.API.Application
             var consultation = await dbContext.Consultations.FindAsync(command.ConsultationId);
             if (consultation != null)
             {
-                consultation.Treatment = new Treatment(command.Treatment);
+                consultation.SetTreatmen(new Text(command.Treatment));
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -51,7 +52,7 @@ namespace Wps.Clinic.API.Application
             var consultation = await dbContext.Consultations.FindAsync(command.ConsultationId);
             if (consultation != null)
             {
-                consultation.Weight = new Weight(command.Weight);
+                consultation.SetWeight(new Weight(command.Weight));
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -61,7 +62,7 @@ namespace Wps.Clinic.API.Application
             var consultation = await dbContext.Consultations.FindAsync(command.ConsultationId);
             if (consultation != null)
             {
-                consultation.Drug = new Drug(command.DrugId, command.Quantity);
+                consultation.AdministerDrug(command.DrugId, new Dose(command.Quantity, command.UnitofMeasure));
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -71,7 +72,9 @@ namespace Wps.Clinic.API.Application
             var consultation = await dbContext.Consultations.FindAsync(command.ConsultationId);
             if (consultation != null)
             {
-                consultation.VitalSigns = new VitalSigns(DateTime.Now, readings.FirstOrDefault().Temperature, readings.FirstOrDefault().HeartRate, readings.FirstOrDefault().RespiratoryRate);
+                consultation.RegisterVitalsigns(command.Readings.Select(m=>     
+                    new VitalSigns(consultation.Id, m.ReadingDateTime,m.Temperature,m.RespiratoryRate,m.HeartRate)));
+               await dbContext.VitalSigns.AddRangeAsync(consultation.VitalSignsReading);
                 // Assuming readings is a variable holding the IEnumerable<VitalSignsReading>
                 await dbContext.SaveChangesAsync();
             }
