@@ -15,7 +15,7 @@ namespace Wps.Clinic.Domain.Test
         {
             var cons = new Consultant(Guid.NewGuid());
 
-            Assert.True(cons.EndAt == null);
+            Assert.True(cons.When.End == null);
         }
         [Fact]
         public void consultation_cant_close_if_missingdata()
@@ -87,6 +87,48 @@ namespace Wps.Clinic.Domain.Test
 
 
             Assert.True(cons.AdministeredDrugs.Count == 1 && cons.AdministeredDrugs.First().DrugId == drg);
+
+        }
+        [Fact]
+        public void datetime_range_unvalid()
+        {
+            var dt = DateTime.UtcNow;
+
+
+
+            Assert.Throws<InvalidOperationException>(() =>{
+                var dr= new DateTimeRange(dt.AddMinutes(10), dt);
+            });
+
+
+        }
+        [Fact]
+        public void datetime_range_ongoing()
+        {
+            var dt = DateTime.UtcNow;
+
+
+
+            
+                var dr = new DateTimeRange(dt.AddMinutes(10));
+
+
+            Assert.True(dr.Duration=="Ongoing");
+
+        }
+        [Fact]
+        public void datetime_range_equal()
+        {
+            var dt = DateTime.UtcNow;
+
+
+
+
+            var dr1 = new DateTimeRange(dt.AddMinutes(-10), dt);
+            var dr2 = new DateTimeRange(dt.AddMinutes(-10), dt);
+
+
+            Assert.True(dr1 == dr2);
 
         }
     }

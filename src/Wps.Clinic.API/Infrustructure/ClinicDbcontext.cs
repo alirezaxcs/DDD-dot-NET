@@ -10,6 +10,8 @@ namespace Wps.Clinic.API.Infrustructure
     {
         public DbSet<Consultant> Consultations { get; set; }
         public DbSet<VitalSigns> VitalSigns { get; set; }
+        public DbSet<DrugAdministration> DrugAdministrations { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,15 +28,36 @@ namespace Wps.Clinic.API.Infrustructure
                 consultation.OwnsOne(p => p.Diagnosis);
                 consultation.OwnsOne(p => p.Treatment);
                 consultation.OwnsOne(p => p.CurrentWeight);
-                consultation.HasMany(c => c.AdministeredDrugs)
-                   .WithOne()
-                   .HasForeignKey(m => m.Id);
+                consultation.OwnsOne(p => p.When);
 
-                consultation.HasMany(c => c.VitalSignsReading)
-                    .WithOne()
-                    .HasForeignKey(m => m.ConsultantId);
+                consultation.OwnsMany(c => c.AdministeredDrugs, a =>
+                {
+                    a.WithOwner().HasForeignKey(p => p.ConsultantId);
+                    a.OwnsOne(b=>b.DrugId);
+                    a.OwnsOne(b => b.Dose);
+
+
+
+                });
+
+
+                consultation.OwnsMany(c => c.VitalSignsReading, a =>
+                {
+                    a.WithOwner().HasForeignKey(p => p.ConsultantId);
+                 });
+
 
             });
+        }
+    }
+    public static class ClinicDbcontextExtention
+    {
+        public static void EnsureDatabaseCreated(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.CreateScope();
+            var dbc = scope.ServiceProvider.GetService<ClinicDbContext>();
+            dbc.Database.EnsureCreated();
+            dbc.Database.CloseConnection();
         }
     }
 }

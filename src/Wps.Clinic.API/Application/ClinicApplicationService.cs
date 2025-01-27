@@ -73,8 +73,8 @@ namespace Wps.Clinic.API.Application
             if (consultation != null)
             {
                 consultation.RegisterVitalsigns(command.Readings.Select(m=>     
-                    new VitalSigns(consultation.Id, m.ReadingDateTime,m.Temperature,m.RespiratoryRate,m.HeartRate)));
-               await dbContext.VitalSigns.AddRangeAsync(consultation.VitalSignsReading);
+                    new VitalSigns(m.ReadingDateTime,m.Temperature,m.RespiratoryRate,m.HeartRate)));
+               
                 // Assuming readings is a variable holding the IEnumerable<VitalSignsReading>
                 await dbContext.SaveChangesAsync();
             }

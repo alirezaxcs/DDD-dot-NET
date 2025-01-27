@@ -6,22 +6,24 @@ namespace Wps.Clinic.Domain
     public class Consultant : AggregateRoot
     {
         private readonly List<DrugAdministration> administerDrugs = new();
-        private readonly List<VitalSigns> vitalSignsReading;
+        private readonly List<VitalSigns> vitalSignsReading=new();
         public IReadOnlyCollection<VitalSigns> VitalSignsReading => vitalSignsReading;
         public IReadOnlyCollection<DrugAdministration> AdministeredDrugs => administerDrugs;
+
+        public DateTimeRange When { get; private set; }
         public Text? Diagnosis { get; private set; }
         public Text? Treatment { get; private set; }
         public PatientId PatientId { get; init; }
-        public DateTime StartedAt { get; init; }
+
         public Weight? CurrentWeight { get; private set; }
         public ConsultationStatus ConsultationStatus { get; private set; }
-        public DateTime? EndAt { get; private set; }
+
 
         public Consultant(PatientId patientId) : base(Guid.NewGuid())
         {
 
             PatientId = patientId;
-            StartedAt = DateTime.UtcNow;
+            When = DateTime.UtcNow;
             ConsultationStatus = ConsultationStatus.Open;
         }
         public void RegisterVitalsigns(IEnumerable<VitalSigns> vitalSigns)
@@ -42,9 +44,9 @@ namespace Wps.Clinic.Domain
                 throw new InvalidOperationException("one of valuse are null and cant ended");
 
             ConsultationStatus = ConsultationStatus.Close;
-            EndAt = DateTime.UtcNow;
+            this.When = new DateTimeRange(this.When.Start, DateTime.UtcNow);
         }
-       
+
         public void SetWeight(Weight weight)
         {
             ValidateConsultationStatus();
