@@ -28,5 +28,7 @@ namespace Wps.Clinic.Domain.ValueObject
 
         }
         public static implicit operator Text(string value) { return new Text(value); }
+        public static implicit operator string(Text value) { return value.Value; }
+
     }
 }

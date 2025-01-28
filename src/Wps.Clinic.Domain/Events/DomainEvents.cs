@@ -9,6 +9,13 @@ using Wps.SharedKernel;
 namespace Wps.Clinic.Domain.Events
 {
     public record ConsultaionStarted(Guid Id,PatientId PatientId,DateTime StartedAt):IDomainEvent;
-    
-    
+
+    public record DiagnosisUpdated(Guid Id, string Diagnosis) : IDomainEvent;
+
+    public record TreatmentUpdated(Guid Id, string Treatment) : IDomainEvent;
+
+    public record WeightUpdated(Guid Id, decimal Weight) : IDomainEvent;
+
+    public record ConsultationEnded(Guid Id, DateTime EndedAt) : IDomainEvent;
+
 }

@@ -36,7 +36,12 @@ namespace Wps.SharedKernel
             _changes.Add(domainEvent);
             Version++;
         }
-
+        public void Load(IEnumerable<IDomainEvent> history)
+        {
+            foreach (IDomainEvent domainEvent in history) 
+            { ApplyDomainEvent(domainEvent); }
+            ClearChanges();
+        }
         protected abstract void ChangeStateByUsingDomainEvent(IDomainEvent domainEvent);
     }
 }

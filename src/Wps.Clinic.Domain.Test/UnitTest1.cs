@@ -7,20 +7,20 @@ namespace Wps.Clinic.Domain.Test
         [Fact]
         public void status_is_open()
         {
-            var cons = new Consultant(Guid.NewGuid());
+            var cons = new Consultation(Guid.NewGuid());
             Assert.True(cons.ConsultationStatus == ConsultationStatus.Open);
         }
         [Fact]
         public void consultation_null_end()
         {
-            var cons = new Consultant(Guid.NewGuid());
+            var cons = new Consultation(Guid.NewGuid());
 
             Assert.True(cons.When.End == null);
         }
         [Fact]
         public void consultation_cant_close_if_missingdata()
         {
-            var cons = new Consultant(Guid.NewGuid());
+            var cons = new Consultation(Guid.NewGuid());
 
             Assert.Throws<InvalidOperationException>(cons.End);
         }
@@ -28,7 +28,7 @@ namespace Wps.Clinic.Domain.Test
         [Fact]
         public void consultation_close()
         {
-            var cons = new Consultant(Guid.NewGuid());
+            var cons = new Consultation(Guid.NewGuid());
             cons.SetTreatmen("treat");
             cons.SetDiagnosis("diag");
             cons.SetWeight(12.2m);
@@ -40,7 +40,7 @@ namespace Wps.Clinic.Domain.Test
         public void consultation_cant_change_if_close()
         {
 
-            var cons = new Consultant(Guid.NewGuid());
+            var cons = new Consultation(Guid.NewGuid());
             cons.SetTreatmen("treat");
             cons.SetDiagnosis("diag");
             cons.SetWeight(12.2m);
@@ -52,7 +52,7 @@ namespace Wps.Clinic.Domain.Test
         public void consultation_cant_change_if_close2()
         {
 
-            var cons = new Consultant(Guid.NewGuid());
+            var cons = new Consultation(Guid.NewGuid());
             cons.SetTreatmen("treat");
             cons.SetDiagnosis("diag");
             cons.SetWeight(12.2m);
@@ -64,7 +64,7 @@ namespace Wps.Clinic.Domain.Test
         public void consultation_cant_change_if_close3()
         {
 
-            var cons = new Consultant(Guid.NewGuid());
+            var cons = new Consultation(Guid.NewGuid());
             cons.SetTreatmen("treat");
             cons.SetDiagnosis("diag");
             cons.SetWeight(12.2m);
@@ -77,7 +77,7 @@ namespace Wps.Clinic.Domain.Test
         public void consultation_administer_drug()
         {
 
-            var cons = new Consultant(Guid.NewGuid());
+            var cons = new Consultation(Guid.NewGuid());
             var drg = new DrugId(Guid.NewGuid());
 
             cons.SetTreatmen("treat");
