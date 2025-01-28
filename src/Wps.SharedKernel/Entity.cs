@@ -5,17 +5,19 @@ namespace Wps.SharedKernel;
 
 public interface IEntity<TId>
 {
-    public TId Id { get; init; }
+    public TId Id { get;}
 }
 
 public abstract class Entity<TId> : IEntity<TId>, IEquatable<Entity<TId>>
 {
+    
+
     protected Entity(TId id)
     {
         Id = id;
     }
 
-    public TId Id { get; init; }
+    public TId Id { get; protected set; }
 
     public bool Equals(Entity<TId>? other) => other is not null && Id.Equals(other.Id);
 

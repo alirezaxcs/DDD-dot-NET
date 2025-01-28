@@ -1,4 +1,5 @@
-﻿using Wps.Clinic.Domain.ValueObject;
+﻿using Wps.Clinic.Domain.Events;
+using Wps.Clinic.Domain.ValueObject;
 using Wps.SharedKernel;
 
 namespace Wps.Clinic.Domain
@@ -21,6 +22,7 @@ namespace Wps.Clinic.Domain
 
         public Consultant(PatientId patientId) : base(Guid.NewGuid())
         {
+            ApplyDomainEvent(new ConsultaionStarted(Id, patientId, DateTime.Now));
 
             PatientId = patientId;
             When = DateTime.UtcNow;
@@ -68,6 +70,10 @@ namespace Wps.Clinic.Domain
                 throw new InvalidOperationException("Consultaion is closed");
         }
 
+        protected override void ChangeStateByUsingDomainEvent(IDomainEvent domainEvent)
+        {
+            throw new NotImplementedException();
+        }
     }
     public enum ConsultationStatus
     {
